@@ -160,7 +160,7 @@ Vejamos agora o que é a derivada exterior. Começamos com o conceito para uma $
 (\de f)_p(X_p) = X_p(f)
 \]
 para $p \in M$ e $X_p \in T_pM$. Note que a definição que demos para $\de{x_n}$ é exatamente a diferencial da função coordenada $x_n$. Com essa definição em mãos, é possível mostrar que existe uma única função linear $\operatorname{d}: \Omega^*(M) \longrightarrow \Omega^*(M)$ satisfazendo:
-\begin{enumerate}
+\begin{itroman}
 	\item Se $\omega$ é uma $k$-forma, então $\de\omega$ é uma $(k+1)$-forma.
 	\item Se $\omega$ é uma $k$-forma e $\tau$ uma $\ell$-forma, então\footnote{Essa é quase uma ``regra de Leibniz'' com um fator de sinal, que é herdado da anticomutatividade do produto exterior.} 
 	\[
@@ -168,17 +168,19 @@ para $p \in M$ e $X_p \in T_pM$. Note que a definição que demos para $\de{x_n}
 	\]
 	\item $\operatorname{d}^2 = 0$.
 	\item Se $f$ é uma $0$-forma, então $\de f$ é a diferencial de $f$ como definida acima.
-\end{enumerate}
+\end{itroman}
 Se $(U,\phi)$ é uma carta coordenada em $M$ com funções coordenadas $\sub x1,\dots,x^n$ e $\omega$ é uma $k$-forma em $U$, pode-se mostrar que
 \[
 \de\omega = \sum_{i_1 \dotsb i_k} \sum_j \frac{\partial a_{i_1 \dotsb i_k}}{\partial x^j} \de{x^j} \wedge \de{x_{i_1}} \wedge \dotsb \wedge \de{x_{i_k}},
 \]
 onde $a_{i_1 \dotsb i_k}$ são os coeficientes de $\omega$ escrita na ``base'' $\de{\sub x1}, \dots, \de{x^n}$. Outra propriedade digna de nota é que a derivada exterior ``comuta'' com o \textit{pullback}: se $F: N \longrightarrow M$ é um mapa suave entre variedades, então
-\begin{equation}
+\begin{equation*}
 	\label{eq: pullback comuta}
 	\de{(F^*\omega)} = F^*\de\omega
-\end{equation}para qualquer $\omega \in \Omega^k(M)$.
+\end{equation*}
+para qualquer $\omega \in \Omega^k(M)$.
 
+\tagged{integracao}{
 \subsection{Integração em variedades}
 	Terminamos essa seção com uma breve descrição de como utilizar formas para integrar em variedades. Começamos com a integral em $\R^n$. Se $\omega = f(x) \,\de{\sub x1} \wedge \dotsb \wedge \de{x^n}$ é uma $n$-forma $C^{\infty}$ definida num aberto $U \subseteq \R^n$, sua integral sobre $U$ é definida pela Integral de Riemann de $f$:
 	\[
@@ -195,6 +197,7 @@ onde $a_{i_1 \dotsb i_k}$ são os coeficientes de $\omega$ escrita na ``base'' $
 	\int_U \omega \coloneqq \int_{\phi(U)}(\phi^{-1})^*\omega,
 	\]
 	que é a integral de uma forma em $\R^n$. Mostra-se que isso está bem-definido e não depende da carta escolhida. Caso não consigamos encontrar a carta $U$, ainda conseguimos definir a integral de $\omega$ para todo $M$ através de uma partição da unidade.
+}
 
 \subsection{Campos e Fibrados vetoriais}
 Se voltarmos as aulas de cálculo e considerar um aberto $U\subset \R^n$, os campos suaves eram aplicações com a seguinte cara:
