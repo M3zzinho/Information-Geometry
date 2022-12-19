@@ -1,0 +1,75 @@
+\section{Variedades Estatísticas}
+\subsection{Objeto de estudo}
+Considere uma família $M$ de distribuições paramétricas sobre um espaço $\Omega$, e espaço de parâmetros $U \subset \R^n$ é um aberto. Então $M$ pode ser descrito como
+\begin{equation*}
+	M = \{p(\come|\theta) \mid \theta \in U\}.
+\end{equation*}
+Para que as coisas façam sentido, é necessário que o mapa $\theta \longmapsto p(\come|\theta)$ seja uma injeção. Além disso, como o contexto é geométrico, cada $p(x|\come)$ precisa ser uma aplicação suave.
+
+O mapa $\phi(p(\come|\theta)) \coloneqq \theta$ é uma carta coordenada global. Além disso, qualquer difeomorfismo suave $\psi$ entre abertos $U$ e $V$ induz uma reparametrização de $M$.
+
+\subsection{A matriz de Informação de Fisher}
+Agora que $M$ pode ser vista como uma variedade, introduzimos uma noção de métrica. Como cada ponto de $M$ é uma distribuição, a a referida métrica calculará a distância entre duas distribuições.
+
+Se $\ell(\theta) \coloneqq \log p(x|\theta)$, considere
+$$\mathrm{g}_{ij}(\theta) \coloneqq \mathbb E_\theta\left[\dfrac{\partial \ell(\theta)}{\partial \theta_i} \dfrac{\partial \ell(\theta)}{\partial \theta_j}\right]$$
+onde $\mathbb E_\theta[Y(\theta)] = \int_\Omega Y(\theta) p(x|\theta)\,\de x$. Facilitando a notação, escreva $\partial_i \ell(\theta)$ para a derivada particial em relação a $i$-ésima coordenada do parâmetro $\theta$. Estes elementos $\mathrm{g}_{ij}$ dão luz a matriz de informação de Fisher $\mathcal I(\theta)$.
+
+\begin{proposicao}
+	$\mathcal I(\theta)$ é uma matriz simétrica, positiva definida. 
+	\begin{proof}
+		Trocando a ordem de integração pela derivação, nota-se que $\mathrm{g}_{ij}(\theta) = -\mathbb E_\theta[\partial_i^2\ell_w]$ e portanto, $\mathrm{g}_{ij} = \mathrm{g}_{ji}$, i.e. é simétrica. Note que os vetores da forma $\partial_i \ell(\theta)$ são linearmente independentes. Se $c\in \R^n$ é um vetor qualquer, note que
+		$$
+\begin{aligned}
+	c^\texttt{t} \mathrm{g}_{ij}(\theta) c & =\sum\limits_{i=1}^n \sum\limits_{j=1}^n c_i c_j \mathbb{E}_{\theta}\left[\partial_i \ell({\theta}) \partial_j \ell(\theta)\right] \\
+& =\mathbb{E}_{\theta}\left[\sum\limits_{i=1}^n c_i \partial_i \ell_{\xi} \sum\limits_{j=1}^n \partial_j \ell(\theta)\right] \\
+& =\mathbb{E}_{\theta}\left[\left(\sum\limits_{i=1}^n c_i \partial_i \ell(\theta)\right)^2\right] \\
+& =\int_{\Omega}\left\{\sum_{i=1}^n c_i \partial_i \ell({\theta})\right\}^2 p(x|\theta)\, \de x \geq 0
+\end{aligned}
+$$
+	Portanto, $\mathcal I(\theta)$ é positiva definida.
+	\end{proof}
+\end{proposicao}
+
+Daí, temos uma métrica Riemmaniana em $M$ e para cada parâmetro $\theta$, o produto interno do espaço tangente $T_{p(\come\mid\theta)} M$ é dado por $\mathrm g_{\theta} \coloneqq \sum_{i,j} \mathrm{g}_{ij}(\theta)\,\de x_i\otimes \de x_j$.
+
+
+\begin{exemplo}[Modelo Gaussiano]
+	Considere $\mathcal N$ a variedade \textit{normal} cuja os parâmetros são da forma $(\mu, \sigma^2)$ e a distribuição é esperada:
+	$$p(x|\mu,\sigma^2) \coloneqq \dfrac{1}{\sqrt{2\pi \sigma}} \exp\Big(-\dfrac{(x-\mu)^2}{2\sigma^2}\Big).$$
+	Note que o espaço dos parâmetros é um semi-plano da forma $\R \times \R_{>0}$ e portanto:
+	\begin{equation*}
+		\ell(\mu,\sigma^2) = -\dfrac{1}2\log(2\pi \sigma) - \dfrac{(x-\mu)^2}{2\sigma^2}
+	\end{equation*}
+	de modo que $\mathrm g_{ij}(\mu,\sigma^2) = \sigma^{-2} \delta_{ij}$ com $i,j \in \{1,2\}$.
+\end{exemplo}
+
+\subsection{Uma abordagem utilizando a divergência KL}
+
+Essa métrica pode ser obtida através da noção de entropia cruzada. Se $\theta$ e $\eta$ são parâmetros, a entropia relativa pode ser definida como
+\begin{equation*}
+	D_{\textsc{kl}}(\eta \| \theta) \coloneqq - \int_{\Omega} p(x|\eta) \log \dfrac{p(x|\theta)}{p(x|\eta)}\,\de x
+\end{equation*}
+que representa a informação perdida caso a $p(\come|\eta)$ for utilizada ao invés de $p(\come|\theta)$. É sabido que essa função em sí não é simétrica, mas como a ideia é uma noção local, faz sentido avaliar caso $\eta$ e $\theta$ forem próximos o suficiente.
+
+Dessa forma, podemos utilizar a expansão de Taylor ao redor de $\theta$ e considerar que $\eta$ é uma perturbação infinitesimal de $\theta$. Nota que a entropia relativa é estritamente maior que 0, visto que a igualdade ocorre somente quanto $\eta=\theta$. Utilizando o polinômio de grau 2, os dois primeiros termos tendem a $0$ e portanto:
+\begin{equation*}
+	\lim_{\eta \to \theta} D_{\textsc{kl}}(\eta\|\theta) = \dfrac12 \sum_{i,j}\dfrac{\partial^2D_{\textsc{kl}}(\eta\|\theta)}{\partial \eta_i\partial \eta_j} \Big|_{\eta = \theta} \de \theta_i\de \theta_j.
+\end{equation*}
+Avaliando o termo da derivada, temos:
+$$
+\begin{aligned}
+\frac{\partial^2 D_{\textsc{kl}}\left(\eta\| \theta\right)}{\partial \eta_i \partial \eta_j} & =\frac{\partial}{\partial \eta_i} \int_\Omega \left[\log \frac{p\left(x|\eta\right)}{p(x|\theta)}+1\right] \frac{\partial p\left(x|\eta\right)}{\partial \eta_j} \,\de x \\
+& =\int_{\Omega}\Bigg[\frac{\partial \log p\left(x|\eta\right)}{\partial \eta_i} \frac{\partial p\left(x|\eta\right)}{\partial \theta_j}\\
+& \hphantom{=\int_{\Omega}\Bigg[\frac{\partial \log}{\partial \eta_i}}+\left[\log \frac{p\left(x|\eta\right)}{p(x|\theta)}+1\right] \frac{\partial^2 p\left(x|\eta\right)}{\partial \eta_j \partial \theta_i}\Bigg]\,\de x
+\end{aligned}
+$$
+Fazendo as contas necessárias, temos 
+$$
+\mathrm g(\theta) \coloneqq \lim_{\eta \to \theta} D_{\textsc{kl}}(\eta\|\theta) = \dfrac12\sum_{i,j} \int_\Omega \partial_i\ell(\theta)\partial_j\ell(\theta)\,\de x = \dfrac12 \mathbb E_\theta[\partial_i\ell(\theta)\partial_j\ell(\theta)]
+$$
+i.e., a menos de uma constante, a matriz de Fisher mais uma vez.
+
+\begin{observacao}
+Qualquer função de divergência $f$ traria a menos de uma constante a mesma métrica. Essa é uma propriedade que garante a unicidade da métrica riemanniana das variedades estatísticas. A premissa chave do argumento é a monotonicidade da informação. Este é um princípio sobre como qualquer medida de divergência, ou diferença, entre as distribuições de probabilidade deve se comportar sob o ``aumento'' de nosso conhecimento.
+\end{observacao}
